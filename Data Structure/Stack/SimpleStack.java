@@ -8,54 +8,45 @@ public class SimpleStack<T> implements SimpleStackInterface<T> {
 		final T[] array = (T[]) Array.newInstance(c, 100);
 		stackArray = array;
 		topOfStack = -1;
-		System.out.println("Declare simple stack of " + c.getSimpleName() + " by 100 reserve spaces.");
 	}
 	
 	public SimpleStack(Class<T> c, int initSize) {
 		final T[] array = (T[]) Array.newInstance(c, initSize);
 		stackArray = array;
 		topOfStack = -1;
-		System.out.println("Declare simple stack of " + c.getSimpleName() + " by " + initSize + " reserve space.");
 	}
 	
 	@Override
-	public void push(T value) {
+	public boolean push(T data) {
 		if(topOfStack+1 < stackArray.length) {
-			stackArray[++topOfStack] = value;
-			System.out.println("Add '" + value + "' to top of stack.");
+			stackArray[++topOfStack] = data;
+			return true;
 		} else {
-			System.out.println("The stack is full can't add '" + value + "' to stack.");
+			return false;
 		}
 	}
 
 	@Override
 	public T pop() {
-		if(topOfStack != -1) {
-			System.out.println("'" + stackArray[topOfStack] + "' " + "has pop out of stack.");
+		if(topOfStack > -1) {
 			return stackArray[topOfStack--];
-		} else {
-			System.out.println("The stack is empty can't pop out any value on top of stack.");
+		} else {;
 			return null;
 		}
 	}
 
 	@Override
 	public T peek() {
-		if(topOfStack != -1) {
-			System.out.println("The top of stack is '" + stackArray[topOfStack] + "'.");
+		if(topOfStack > -1) {
 			return stackArray[topOfStack];
 		} else {
-			System.out.println("The stack is empty can't peek any value on top of stack.");
 			return null;
 		}
 	}
 
 	@Override
 	public boolean isEmpty() {
-		if(topOfStack == -1)
-			return true;
-		else
-			return false;
+		return topOfStack == -1;
 	}
 
 	@Override
@@ -67,5 +58,4 @@ public class SimpleStack<T> implements SimpleStackInterface<T> {
 	public int getSpace() {
 		return stackArray.length - (topOfStack+1);
 	}
-
 }

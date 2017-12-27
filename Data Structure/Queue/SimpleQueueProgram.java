@@ -3,15 +3,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class SimpleQueueProgram {
-	static SimpleQueue<String> q;
+	static SimpleQueue<String> simpleQueue;
 	
 	public static void createQueue(int spaceAvailable) {
-		q = new SimpleQueue(String.class, spaceAvailable);
-		System.out.println("Declare simple queue by " + spaceAvailable + " reserve spaces.");
+		simpleQueue = new SimpleQueue(String.class, spaceAvailable);
+		System.out.println("Declare the queue by " + spaceAvailable + " reserve spaces.");
 	}
 	
 	public static void addData(String data) {
-		if(q.add(data)) {
+		if(simpleQueue.add(data)) {
 			System.out.println("Add '" + data + "' to the last of queue.");
 		} else {
 			System.out.println("The queue is full can't add '" + data + "' to queue.");
@@ -19,42 +19,38 @@ public class SimpleQueueProgram {
 	}
 	
 	public static void removeData() {
-		if(q.isEmpty()) {
-			System.out.println("The queue is empty can't remove any data.");
+		String removeData = simpleQueue.remove();
+		if(removeData != null) {
+			System.out.println("'" + removeData + "'" + " has remove out of the queue.");
 		} else {
-			System.out.println("'" + q.remove() + "'" + " has remove out of queue.");
+			System.out.println("The queue is empty can't remove any data.");
 		}
 	}
 	
 	public static void showFirstData() {
-		if(q.isEmpty()) {
-			System.out.println("The queue is empty can't get any data");
+		String firstData = simpleQueue.getFirstQueue();
+		if(firstData != null) {
+			System.out.println("The first data of queue is " + firstData + ".");
 		} else {
-			System.out.println("The first data of queue is " + q.getFirstQueue() + ".");
+			System.out.println("The queue is empty can't get any data");
 		}
 	}
 	
 	public static void showLastData() {
-		if(q.isEmpty()) {
-			System.out.println("The queue is empty can't get any data");
+		String lastData = simpleQueue.getLastQueue();
+		if(lastData != null) {
+			System.out.println("The last data of queue is " + lastData + ".");
 	    } else {
-			System.out.println("The last data of queue is " + q.getLastQueue() + ".");
+			System.out.println("The queue is empty can't get any data");
 		}
-	}
-	
-	public static void removeAll() {
-		while(!q.isEmpty()) {
-			q.remove();
-		}
-		System.out.println();
 	}
 	
 	public static void showAmount() {
-		System.out.println("Amount of data in queue is " + q.getSize() + ".");
+		System.out.println("The amount of data in the queue is " + simpleQueue.getSize() + ".");
 	}
 	
 	public static void showSpace() {
-		System.out.println("The queue have " +  q.getSpace() + " space available.");
+		System.out.println("The queue have " +  simpleQueue.getSpace() + " space available.");
 	}
 	
 	
@@ -63,45 +59,41 @@ public class SimpleQueueProgram {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		byte userInput;
 		System.out.println("#Welcome to Simple Queue Data Management Program#");
-		System.out.println("Type your queue spaces available and enter to declare your queue.");
+		System.out.println("Type queue spaces available and enter to declare the queue.");
 		userInput = (byte) Integer.parseInt(in.readLine());
 		createQueue(userInput);
 		System.out.println();
 		
-		do{
+		while(true) {
 			System.out.println("Type number of order and enter to do expression.");
-			System.out.println("1: Add data to queue.");
-			System.out.println("2: Remove data from queue.");
+			System.out.println("1: Add data to the queue.");
+			System.out.println("2: Remove data from the queue.");
 			System.out.println("3: Show the first data of queue");
 			System.out.println("4: Show the last data of queue");
-			System.out.println("5: Show amount of data in queue");
-			System.out.println("6: Show space available of queue.");
+			System.out.println("5: Show the amount of data in the queue");
+			System.out.println("6: Show space available in the queue.");
 			System.out.println("99: Exit Simple Queue Data Management Program.");
 			userInput = (byte) Integer.parseInt(in.readLine());
 			
 			if(userInput == 1) {
 				System.out.println();
-				System.out.println("Type data and enter to add to your queue.");
+				System.out.println("Type data and enter to add to the queue.");
 				addData(in.readLine());
-				System.out.println();
 			} else if(userInput == 2) {
 				removeData();
-				System.out.println();
 			} else if(userInput == 3) {
 				showFirstData();
-				System.out.println();
 			} else if(userInput == 4) {
 				showLastData();
-				System.out.println();
 			} else if (userInput == 5) {
 				showAmount();
-				System.out.println();
 			} else if (userInput == 6) {
 				showSpace();
-				System.out.println();
 			} else if (userInput == 99) {
-				break;
+				return;
 			}
-		} while(userInput != 99);
+			System.out.println("Enter to continue...");
+			in.readLine();
+		}
 	}
 }

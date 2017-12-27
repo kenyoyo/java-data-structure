@@ -1,23 +1,23 @@
 
 public interface SimpleQueueInterface<T> {
-	//Add value to the last of queue.
-	public boolean add(T value);
+	//Add data to last of queue.
+	public boolean add(T data);
 	
-	//Remove value from the first of queue.
+	//Remove data from first of queue.
 	public T remove();
 	
-	//Get value from the first of queue.
+	//Get data from first of queue.
 	public T getFirstQueue();
 	
-	//Get value from the last of queue.
+	//Get data from last of queue.
 	public T getLastQueue();
 	
-	//Check the queue is empty.
+	//Check is an empty queue.
 	public boolean isEmpty();
 	
 	//Get size of queue.
 	public int getSize();
 	
-	//Get total space of queue.
+	//Get space available of queue.
 	public int getSpace();
 }

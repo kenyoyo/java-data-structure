@@ -21,27 +21,25 @@ public class SimpleQueue<T> implements SimpleQueueInterface<T> {
 		numberOfItems = 0;
 	}
 	
-	public boolean add(T value) {
+	public boolean add(T data) {
 		if(numberOfItems == 0) {
-			queueArray[front] = value;
+			queueArray[front] = data;
 			numberOfItems++;
 			return true;
 		} else {
-			if((rear+1) % queueArray.length == front) {
-				return false;
-			} else {
+			if((rear+1) % queueArray.length != front) {
 				rear = (rear+1) % queueArray.length;
-				queueArray[rear] = value;
+				queueArray[rear] = data;
 				numberOfItems++;
 				return true;
+			} else {
+				return false;
 			}
 		}
 	}
 	
 	public T remove() {
-		if(numberOfItems == 0) {
-			return null;
-		} else {
+		if(numberOfItems > 0) {
 			if(numberOfItems == 1) {
 				numberOfItems--;
 				return queueArray[front];
@@ -51,21 +49,25 @@ public class SimpleQueue<T> implements SimpleQueueInterface<T> {
 				numberOfItems--;
 				return removeItem;
 			}
+		} else {
+			return null;
 		}
 	}
 	
 	public T getFirstQueue() {
-		if(numberOfItems == 0) {
+		if(numberOfItems > 0) {
+			return queueArray[front];
+		} else {
 			return null;
 		}
-		return queueArray[front];
 	}
 	
 	public T getLastQueue() {
-		if(numberOfItems == 0) {
+		if(numberOfItems > 0) {
+			return queueArray[rear];
+		} else {
 			return null;
 		}
-		return queueArray[rear];
 	}
 	
 	public boolean isEmpty() {
